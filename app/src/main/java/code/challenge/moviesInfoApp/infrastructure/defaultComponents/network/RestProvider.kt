@@ -138,7 +138,7 @@ fun <Request, Response : retrofit2.Response<Request>> Single<Response>.setCallba
 private fun Disposable.disposeOnStopEvent(lifecycle: Lifecycle) {
     lifecycle.addObserver(object : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-        fun cancelCalls() = takeIf { !isDisposed }.let { dispose() }
+        fun cancelCalls() = dispose()
     })
 }
 
