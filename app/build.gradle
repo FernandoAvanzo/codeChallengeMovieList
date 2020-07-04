@@ -17,18 +17,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        debug {
-            minifyEnabled false
-            debuggable true
-            shrinkResources false
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -46,6 +34,28 @@ android {
         experimental = true
     }
 
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            shrinkResources false
+
+            buildConfigField 'String', "movie_api_url",(project.findProperty("MOVIES_API_HOST") ?: "")
+            buildConfigField 'String', "movie_picture_url",(project.findProperty("MOVIES_PICTURE_HOST") ?: "")
+            buildConfigField 'String', "api_key",(project.findProperty("MOVIES_API_KEY") ?: "")
+            buildConfigField 'String', "api_key_type",(project.findProperty("MOVIES_API_TYPE") ?: "")
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String', "movie_api_url",(project.findProperty("MOVIES_API_HOST") ?: "")
+            buildConfigField 'String', "movie_picture_url",(project.findProperty("MOVIES_PICTURE_HOST") ?: "")
+            buildConfigField 'String', "api_key",(project.findProperty("MOVIES_API_KEY") ?: "")
+            buildConfigField 'String', "api_key_type",(project.findProperty("MOVIES_API_TYPE") ?: "")
+        }
+    }
 
 }
 

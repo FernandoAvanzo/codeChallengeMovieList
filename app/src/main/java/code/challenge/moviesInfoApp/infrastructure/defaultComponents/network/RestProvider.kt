@@ -6,6 +6,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import code.challenge.moviesInfoApp.BuildConfig
+import code.challenge.moviesInfoApp.infrastructure.extensions.buildApiAccessKey
+import code.challenge.moviesInfoApp.infrastructure.extensions.buildMovieServiceUrl
 import code.challenge.moviesInfoApp.infrastructure.extensions.checkNetworkConnection
 import code.challenge.moviesInfoApp.infrastructure.extensions.isInternetAccessible
 import com.google.gson.Gson
@@ -23,15 +25,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-open class RestProvider(val context: Context, val url: String? = "") {
+open class RestProvider(val context: Context, val url: String? = buildMovieServiceUrl()) {
 
     companion object {
-        var token = ""
-        var tokenType = ""
+        var token = buildApiAccessKey()
         private val LOGGING_LEVEL: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
         private const val TIMEOUT_SECONDS = 500L
-
-        fun getBuildToken() = "$tokenType $token"
     }
 
     var retrofit: Retrofit
@@ -42,7 +41,7 @@ open class RestProvider(val context: Context, val url: String? = "") {
         return@Interceptor when (token.isNotEmpty()) {
             true -> {
                 val request = original.newBuilder()
-                    .header("Authorization", "$tokenType $token")
+                    .header("Authorization", token)
                     .build() as Request
                 chain.proceed(request) as Response
             }

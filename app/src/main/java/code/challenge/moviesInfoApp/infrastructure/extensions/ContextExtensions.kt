@@ -7,6 +7,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import java.net.HttpURLConnection
 import java.net.URL
+import code.challenge.moviesInfoApp.BuildConfig.movie_api_url
+import code.challenge.moviesInfoApp.BuildConfig.movie_picture_url
+import code.challenge.moviesInfoApp.BuildConfig.api_key
+import code.challenge.moviesInfoApp.BuildConfig.api_key_type
 
 
 private val customLifecycle = object : Lifecycle() {
@@ -45,6 +49,10 @@ fun isInternetAccessible(): Boolean {
         false
     }
 }
+
+fun buildMovieServiceUrl() = movie_api_url
+fun buildMoviePictureUrl() = movie_picture_url
+fun buildApiAccessKey() = "$api_key_type $api_key"
 
 
 
