@@ -28,7 +28,37 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.afollestad.material-dialogs:core:0.8.5.9'
+    implementation 'com.afollestad:sectioned-recyclerview:0.2.3'
+    implementation 'com.karumi:dexter:5.0.0'
+    implementation 'com.scottyab:rootbeer-lib:0.0.7'
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.6.1"
+    implementation 'com.jaychang:simplerecyclerview:2.0.5'
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    // https://github.com/Kotlin/kotlinx.coroutines/blob/master/CHANGES.md
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+
+    // https://github.com/ReactiveX/RxJava/releases
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+
+    // https://github.com/ReactiveX/RxAndroid/releases
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+
+    // https://github.com/square/okhttp/blob/master/CHANGELOG.md
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+
+
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
