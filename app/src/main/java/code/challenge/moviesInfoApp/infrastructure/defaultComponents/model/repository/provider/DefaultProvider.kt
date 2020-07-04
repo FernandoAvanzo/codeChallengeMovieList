@@ -8,7 +8,6 @@ import code.challenge.moviesInfoApp.infrastructure.extensions.loaderHelper
 
 abstract class DefaultProvider<T : DefaultServiceAPI>(
     context: Context,
-    loader: ((ComunicationProtocolModel) -> Any) = loaderHelper,
     url: String? = buildMovieServiceUrl()
 ) :
     RestProvider(context, url) {
