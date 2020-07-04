@@ -3,7 +3,7 @@ package code.challenge.movieList.infrastructure.defaultComponents.views
 import android.content.Context
 import code.challenge.movieList.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
 
-interface BaseView {
+interface DefaultView {
     fun showLoading() {}
     fun hideLoading() {}
     fun onFailure(erro: ComunicationProtocolModel) {}
