@@ -3,10 +3,8 @@ package code.challenge.movieList.infrastructure.defaultComponents.model.reposito
 import android.content.Context
 import code.challenge.movieList.infrastructure.defaultComponents.network.RestProvider
 
-abstract class DefaultProvider<S : DefaultServiceAPI>(
-    val providerContext: Context,
-    url: String? = ""
-) : RestProvider(providerContext, url) {
+abstract class DefaultProvider<S : DefaultServiceAPI>(context: Context, url: String? = "") :
+    RestProvider(context, url) {
 
     val service: S by lazy { retrofit.create(loadServiceClass()) }
 
