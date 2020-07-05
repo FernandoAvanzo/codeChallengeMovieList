@@ -18,4 +18,9 @@ class ListOfMoviesProvider(
         service.loadUpComingMoviesService()
             .setCallback(defaultCallback(loader, context))
     }
+
+    fun loadPosterPicture(posterPath: String) {
+        service.loadPosterPictureService(posterPath)
+            .setCallback(defaultCallback(loader, context))
+    }
 }

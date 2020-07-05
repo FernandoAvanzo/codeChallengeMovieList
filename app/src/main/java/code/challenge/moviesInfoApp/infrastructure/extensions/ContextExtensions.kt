@@ -1,16 +1,20 @@
 package code.challenge.moviesInfoApp.infrastructure.extensions
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import code.challenge.moviesInfoApp.BuildConfig.*
+import code.challenge.moviesInfoApp.R.drawable.ic_launcher_background
+import java.io.BufferedInputStream
+import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import code.challenge.moviesInfoApp.BuildConfig.movie_api_url
-import code.challenge.moviesInfoApp.BuildConfig.movie_picture_url
-import code.challenge.moviesInfoApp.BuildConfig.api_key
-import code.challenge.moviesInfoApp.BuildConfig.api_key_type
 
 
 private val customLifecycle = object : Lifecycle() {
@@ -35,6 +39,17 @@ fun Context.getLifecycle(): Lifecycle {
         is AppCompatActivity -> this.lifecycle
         else -> customLifecycle
     }
+}
+
+fun Context.buildDrawableAsset(source: Bitmap?): Drawable {
+    return source?.let {
+        BitmapDrawable(this.resources, source)
+    } ?: ic_launcher_background.getDrawable(this)
+}
+
+fun buildBitampFromStream(byteStrean: InputStream): Bitmap {
+    val buffer = BufferedInputStream(byteStrean)
+    return BitmapFactory.decodeStream(buffer)
 }
 
 fun isInternetAccessible(): Boolean {
