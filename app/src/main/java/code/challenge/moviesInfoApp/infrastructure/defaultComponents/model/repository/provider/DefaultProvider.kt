@@ -7,8 +7,7 @@ import code.challenge.moviesInfoApp.infrastructure.extensions.buildMovieServiceU
 abstract class DefaultProvider<T>(
     context: Context,
     url: String? = buildMovieServiceUrl()
-) :
-    RestProvider(context, url) {
+) : RestProvider(context, url) {
 
     val service: T get() = retrofit.create(this.loadServiceClass())
 
