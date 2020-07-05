@@ -1,8 +1,6 @@
 package code.challenge.moviesInfoApp.listOfMovies.view.fragments
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
-import android.view.View
 import code.challenge.moviesInfoApp.R.layout.fragment_movie_poster
 import code.challenge.moviesInfoApp.databinding.FragmentMoviePosterBinding
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.fragment.DefaultFragment
