@@ -32,11 +32,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintVertical_bias="0"
             tools:layout_height="60dp"
-            tools:layout_width="60dp">
-            <include layout="@layout/fragment_movie_poster"
-                android:visibility="gone"
-                tools:visibility="gone"/>
-        </FrameLayout>
+            tools:layout_width="60dp"/>
         <TextView
             android:id="@+id/movie_title_label"
             android:layout_width="wrap_content"
