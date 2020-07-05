@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-open class RestProvider(val context: Context, url: String? = buildMovieServiceUrl()) {
+open class RestProvider(val context: Context, url: String = buildMovieServiceUrl()) {
 
     companion object {
         var token = buildApiAccessKey()
@@ -73,11 +73,11 @@ open class RestProvider(val context: Context, url: String? = buildMovieServiceUr
 
         val gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
 
-        val localUrl = url ?: ""
+
 
         retrofit = Retrofit
             .Builder()
-            .baseUrl(localUrl)
+            .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(client)

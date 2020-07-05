@@ -3,10 +3,6 @@ package code.challenge.moviesInfoApp.listOfMovies.model.repository.provider
 import android.os.Build.VERSION_CODES.O_MR1
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
-import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -15,18 +11,11 @@ import org.robolectric.annotation.Config
 @Config(sdk = [O_MR1])
 class ListOfMoviesProviderTest {
 
-    val testhelper = { loader: ComunicationProtocolModel ->
-        when (loader.load) {
-            false -> {
-                assertNotNull(loader.result)
-                assertTrue(loader.result is ListOfMovies)
-            }
-        }
-    }
+
 
     @Test
     fun loadUpComingMovies_serviceWorks() {
-        val provider = ListOfMoviesProvider(ApplicationProvider.getApplicationContext(), testhelper)
+        val provider = ListOfMoviesProvider(ApplicationProvider.getApplicationContext())
         provider.loadUpComingMovies()
     }
 }
