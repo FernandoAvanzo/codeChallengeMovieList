@@ -16,8 +16,8 @@ class ListOfMoviesProvider(
 
     override fun loadServiceClass() = ListOfMoviesService::class.java
 
-    fun loadUpComingMovies() {
-        service.loadUpComingMoviesService()
+    fun loadUpComingMovies(page:Int = 1) {
+        service.loadUpComingMoviesService("pt-BR",page)
             .setCallback(defaultCallback(loader, context))
     }
 

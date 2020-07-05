@@ -7,7 +7,7 @@ data class ListOfMovies(
     @SerializedName("results")
     val results: ArrayList<Movie> = ArrayList(),
     @SerializedName("page")
-    val page: Int = 0,
+    val page: Int = -1,
     @SerializedName("total_results")
     val totalResults: Int = 0,
     @SerializedName("dates")

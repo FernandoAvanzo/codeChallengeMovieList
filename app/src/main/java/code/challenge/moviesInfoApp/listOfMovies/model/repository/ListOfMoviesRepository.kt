@@ -9,6 +9,8 @@ import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 
 class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
+    private var currentPage = ListOfMovies()
+
     val movies by lazy { ArrayList<Movie>() }
 
     private val posterAuth by lazy { AuthApiModel(buildMoviePictureUrl(),"") }
@@ -28,10 +30,13 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         )
     }
 
-    fun loadUpComingMovies() = provider.loadUpComingMovies()
     fun loadPosterPicture(movie: Movie) = posterProvider.loadPosterPicture(movie.posterPath)
 
+    fun loadUpComingMovies(page: Int = 1) =
+        provider.loadUpComingMovies(page)
+
     fun updatePage(page: ListOfMovies) {
+        currentPage = page
         page.results.indices.map {
             movies.add(page.results[it])
             presenter.refreshInsertItem(it)
