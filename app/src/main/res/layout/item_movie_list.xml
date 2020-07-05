@@ -35,7 +35,7 @@
             tools:layout_width="60dp">
             <include layout="@layout/fragment_movie_poster"
                 android:visibility="gone"
-                tools:visibility="visible"/>
+                tools:visibility="gone"/>
         </FrameLayout>
         <TextView
             android:id="@+id/movie_title_label"

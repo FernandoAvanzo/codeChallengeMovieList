@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movie Info</string>
+    <string name="back_screen">Voltar</string>
 </resources>

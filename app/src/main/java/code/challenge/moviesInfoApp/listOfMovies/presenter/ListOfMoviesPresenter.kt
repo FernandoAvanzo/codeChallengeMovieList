@@ -8,6 +8,7 @@ import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.model.repository.ListOfMoviesRepository
 import code.challenge.moviesInfoApp.listOfMovies.view.activitys.AppMainActivity
+import code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMovieList
 import code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMoviePoster
 import code.challenge.moviesInfoApp.listOfMovies.view.interfaces.ActionMoviePoster
 import okhttp3.ResponseBody
@@ -30,6 +31,7 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     fun movieListSize() = repository.movies.size
     fun loadUpComingMovies() = repository.loadUpComingMovies()
     fun loadPosterPicture(movie: Movie) = repository.loadPosterPicture(movie)
+
     fun updateMovieList() = view.updateListView()
     fun refreshInsertItem(id: Int) = view.updateInsertedList(id)
     fun takeMove(id: Int) = movieList()
@@ -39,6 +41,14 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
         when(val activity = context){
             is AppMainActivity->{
                 activity.onAttachChildFragment(FragmentMoviePoster(movie))
+            }
+        }
+    }
+
+    fun buildPosterListOfMovie(){
+        when(val activity = context){
+            is AppMainActivity->{
+                activity.onAttachChildFragment(FragmentMovieList())
             }
         }
     }
