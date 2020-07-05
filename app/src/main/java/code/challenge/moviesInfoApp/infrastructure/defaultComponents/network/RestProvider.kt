@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-open class RestProvider(val context: Context, val url: String? = buildMovieServiceUrl()) {
+open class RestProvider(val context: Context, url: String? = buildMovieServiceUrl()) {
 
     companion object {
         var token = buildApiAccessKey()
@@ -85,6 +85,7 @@ open class RestProvider(val context: Context, val url: String? = buildMovieServi
     }
 }
 
+@Suppress("unused")
 fun Completable.setCallback(callback: DefaultRequestCallback) {
     subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
