@@ -7,7 +7,7 @@ import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 
 class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
-    val movies: ArrayList<Movie> = ArrayList()
+    val movies by lazy { ArrayList<Movie>() }
 
     private val provider by lazy {
         ListOfMoviesProvider(
@@ -17,6 +17,7 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
     }
 
     fun loadUpComingMovies() = provider.loadUpComingMovies()
+    fun loadPosterPicture(movie: Movie) = provider.loadPosterPicture(movie.posterPath)
 
     fun updatePage(page: ListOfMovies) {
         page.results.indices.map {

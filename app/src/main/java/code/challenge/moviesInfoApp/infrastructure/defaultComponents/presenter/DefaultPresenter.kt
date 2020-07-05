@@ -7,6 +7,8 @@ abstract class DefaultPresenter(val view: DefaultView) {
 
     var flowErrorControl = -1
 
+    val context by lazy { view.viewContext() }
+
     init {
         flowErrorControl = -1
     }
