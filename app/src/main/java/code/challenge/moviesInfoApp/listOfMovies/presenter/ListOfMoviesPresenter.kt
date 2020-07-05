@@ -6,7 +6,7 @@ import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.model.repository.ListOfMoviesRepository
 
-class ListOfMoviesPresenter(private val moviesView: DefaultView): DefaultPresenter(moviesView) {
+class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesView) {
 
     private val repository by lazy { ListOfMoviesRepository(this) }
 
@@ -18,9 +18,12 @@ class ListOfMoviesPresenter(private val moviesView: DefaultView): DefaultPresent
         }
     }
 
-    fun movieList() = repository.movies
     fun movieListSize() = repository.movies.size
     fun loadUpComingMovies() = repository.loadUpComingMovies()
-    fun takeMove(id: Int) = repository.movies
+    fun updateMovieList() = view.updateListView()
+    fun refreshInsertItem(id: Int) = view.updateInsertedList(id)
+    fun takeMove(id: Int) = movieList()
         .takeIf { id in 0 until it.size }?.get(id) ?: Movie()
+
+    private fun movieList() = repository.movies
 }

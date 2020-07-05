@@ -19,8 +19,10 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
     fun loadUpComingMovies() = provider.loadUpComingMovies()
 
     fun updatePage(page: ListOfMovies) {
-        page.results.map {
-            movies.add(it)
+        page.results.indices.map {
+            movies.add(page.results[it])
+            presenter.refreshInsertItem(it)
         }
+        presenter.updateMovieList()
     }
 }

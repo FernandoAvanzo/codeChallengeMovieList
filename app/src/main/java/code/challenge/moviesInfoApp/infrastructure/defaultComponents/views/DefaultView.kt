@@ -13,5 +13,7 @@ interface DefaultView {
     fun showToolbar(show: Boolean){}
     fun showToolbarIconDownload(show: Boolean){}
     fun viewContext(): Context
+    fun updateListView() {}
+    fun updateInsertedList(id: Int) {}
 
 }

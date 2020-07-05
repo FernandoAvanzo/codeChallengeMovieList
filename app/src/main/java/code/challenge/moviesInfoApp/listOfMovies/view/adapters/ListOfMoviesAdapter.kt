@@ -19,6 +19,9 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
 
     override fun getItemCount() = presenter.movieListSize()
 
+    override fun updateListView() = notifyDataSetChanged()
+    override fun updateInsertedList(id: Int) = notifyItemInserted(id)
+
     override fun onBindViewHolder(holder: DefaultHolder, position: Int) {
         holder.item.model = presenter.takeMove(position)
     }
