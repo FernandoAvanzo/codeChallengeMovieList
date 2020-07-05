@@ -1,6 +1,7 @@
 package code.challenge.moviesInfoApp.listOfMovies.view.adapters
 
 import android.content.Context
+import android.view.View
 import code.challenge.moviesInfoApp.R.layout.item_movie_list
 import code.challenge.moviesInfoApp.databinding.ItemMovieListBinding
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.adapter.DefaultAdapter
@@ -23,12 +24,11 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
     override fun updateInsertedList(id: Int) = notifyItemInserted(id)
 
     override fun onBindViewHolder(holder: DefaultHolder, position: Int) {
+        holder.item.controller = this
         holder.item.model = presenter.takeMove(position)
-        updateMovieThumbnail(holder)
     }
 
-    private fun updateMovieThumbnail(holder: DefaultHolder) {
-        val item = holder.item
-        val model = item.model?:Movie()
+    fun movieDetailsAction(model: Movie) = View.OnClickListener {
+        presenter.buildPosterThumbnail(model)
     }
 }

@@ -6,14 +6,23 @@
         <variable
             name="model"
             type="code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie" />
+        <variable
+            name="controller"
+            type="code.challenge.moviesInfoApp.listOfMovies.view.adapters.ListOfMoviesAdapter" />
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{controller.movieDetailsAction(model)}">
         <FrameLayout
             android:id="@+id/movie_poster_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +32,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintVertical_bias="0"
             tools:layout_height="60dp"
-            tools:layout_width="60dp" >
+            tools:layout_width="60dp">
             <include layout="@layout/fragment_movie_poster"
                 android:visibility="gone"
                 tools:visibility="visible"/>
@@ -32,6 +41,8 @@
             android:id="@+id/movie_title_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
             android:textSize="23sp"
             android:text="@{model.title}"
             app:layout_constrainedHeight="true"
@@ -48,6 +59,8 @@
             android:layout_height="4dp"
             android:background="@color/md_divider_black"
             android:layout_marginTop="5dp"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_poster_icon"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -7,9 +7,11 @@ import code.challenge.moviesInfoApp.infrastructure.extensions.buildDrawableAsset
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.model.repository.ListOfMoviesRepository
+import code.challenge.moviesInfoApp.listOfMovies.view.activitys.AppMainActivity
 import code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMoviePoster
 import code.challenge.moviesInfoApp.listOfMovies.view.interfaces.ActionMoviePoster
 import okhttp3.ResponseBody
+import kotlin.math.atan
 
 class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesView) {
 
@@ -30,9 +32,16 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     fun loadPosterPicture(movie: Movie) = repository.loadPosterPicture(movie)
     fun updateMovieList() = view.updateListView()
     fun refreshInsertItem(id: Int) = view.updateInsertedList(id)
-    fun buildPosterThumbnail(movie: Movie) = FragmentMoviePoster(movie)
     fun takeMove(id: Int) = movieList()
         .takeIf { id in 0 until it.size }?.get(id) ?: Movie()
+
+    fun buildPosterThumbnail(movie: Movie){
+        when(val activity = context){
+            is AppMainActivity->{
+                activity.onAttachChildFragment(FragmentMoviePoster(movie))
+            }
+        }
+    }
 
     private fun movieList() = repository.movies
 
