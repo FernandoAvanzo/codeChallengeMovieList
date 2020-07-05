@@ -5,18 +5,23 @@ import code.challenge.moviesInfoApp.R.layout.item_movie_list
 import code.challenge.moviesInfoApp.databinding.ItemMovieListBinding
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.adapter.DefaultAdapter
+import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 
 class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBinding>(context),
     DefaultView {
 
+    private val presenter by lazy { ListOfMoviesPresenter(this) }
+
+    init {
+        presenter.loadUpComingMovies()
+    }
+
     override fun idLayout() = item_movie_list
     override fun viewContext() = baseContext
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = presenter.movieListSize()
 
     override fun onBindViewHolder(holder: DefaultHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.item.model = presenter.takeMove(position)
     }
 }

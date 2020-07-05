@@ -18,5 +18,4 @@ class ListOfMoviesProvider(
         service.loadUpComingMoviesService()
             .setCallback(defaultCallback(loader, context))
     }
-
 }

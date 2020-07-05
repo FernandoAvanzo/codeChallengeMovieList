@@ -17,7 +17,7 @@ class ListOfMoviesProviderTest {
 
 
     @Test
-    fun loadUpComingMovies_serviveWorks() {
+    fun loadUpComingMovies_serviceWorks() {
         val testhelper = { loader: ComunicationProtocolModel ->
             when (loader.load) {
                 false -> {
