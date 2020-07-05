@@ -15,17 +15,17 @@ import org.robolectric.annotation.Config
 @Config(sdk = [O_MR1])
 class ListOfMoviesProviderTest {
 
+    val testhelper = { loader: ComunicationProtocolModel ->
+        when (loader.load) {
+            false -> {
+                assertNotNull(loader.result)
+                assertTrue(loader.result is ListOfMovies)
+            }
+        }
+    }
 
     @Test
     fun loadUpComingMovies_serviceWorks() {
-        val testhelper = { loader: ComunicationProtocolModel ->
-            when (loader.load) {
-                false -> {
-                    assertNotNull(loader.result)
-                    assertTrue(loader.result is ListOfMovies)
-                }
-            }
-        }
         val provider = ListOfMoviesProvider(ApplicationProvider.getApplicationContext(), testhelper)
         provider.loadUpComingMovies()
     }

@@ -3,12 +3,10 @@ package code.challenge.moviesInfoApp.listOfMovies.view.adapters
 import android.content.Context
 import code.challenge.moviesInfoApp.R.layout.item_movie_list
 import code.challenge.moviesInfoApp.databinding.ItemMovieListBinding
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.adapter.DefaultAdapter
 import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 
-class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBinding>(context),
-    DefaultView {
+class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBinding>(context){
 
     private val presenter by lazy { ListOfMoviesPresenter(this) }
 
