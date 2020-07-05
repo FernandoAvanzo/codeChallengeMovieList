@@ -1,11 +1,9 @@
 package code.challenge.moviesInfoApp.listOfMovies.view.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import code.challenge.moviesInfoApp.R.layout.fragment_movie_list
 import code.challenge.moviesInfoApp.databinding.FragmentMovieListBinding
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.fragment.DefaultFragment
 import code.challenge.moviesInfoApp.listOfMovies.view.adapters.ListOfMoviesAdapter
 
