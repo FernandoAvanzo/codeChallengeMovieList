@@ -1,6 +1,8 @@
 package code.challenge.moviesInfoApp.listOfMovies.view.fragments
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.view.View
 import code.challenge.moviesInfoApp.R.layout.fragment_movie_poster
 import code.challenge.moviesInfoApp.databinding.FragmentMoviePosterBinding
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.fragment.DefaultFragment
@@ -15,6 +17,11 @@ class FragmentMoviePoster(private val movie: Movie = Movie()) :
 
     override fun fragmentLayout() = fragment_movie_poster
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        defaultBinding.model = movie
+        defaultBinding.controller = this
+    }
+
     override fun onResume() {
         super.onResume()
         presenter.loadPosterPicture(movie)
@@ -24,5 +31,9 @@ class FragmentMoviePoster(private val movie: Movie = Movie()) :
         defaultBinding
             .moviePosterThumbnail
             .setImageDrawable(poster)
+    }
+
+    fun backAction() = View.OnClickListener {
+        presenter.buildPosterListOfMovie()
     }
 }

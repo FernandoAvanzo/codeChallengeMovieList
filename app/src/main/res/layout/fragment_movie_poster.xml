@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="model"
             type="code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie" />
+        <variable
+            name="controller"
+            type="code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMoviePoster" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,6 +71,7 @@
             android:layout_marginBottom="20dp"
             android:text="@string/back_screen"
             android:background="@drawable/md_btn_shape"
+            android:onClick="@{controller.backAction()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

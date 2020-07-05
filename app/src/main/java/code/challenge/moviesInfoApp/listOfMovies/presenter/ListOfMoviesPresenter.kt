@@ -7,12 +7,10 @@ import code.challenge.moviesInfoApp.infrastructure.extensions.buildDrawableAsset
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.model.repository.ListOfMoviesRepository
-import code.challenge.moviesInfoApp.listOfMovies.view.activitys.AppMainActivity
 import code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMovieList
 import code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMoviePoster
 import code.challenge.moviesInfoApp.listOfMovies.view.interfaces.ActionMoviePoster
 import okhttp3.ResponseBody
-import kotlin.math.atan
 
 class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesView) {
 
@@ -37,28 +35,20 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     fun takeMove(id: Int) = movieList()
         .takeIf { id in 0 until it.size }?.get(id) ?: Movie()
 
-    fun buildPosterThumbnail(movie: Movie){
-        when(val activity = context){
-            is AppMainActivity->{
-                activity.onAttachChildFragment(FragmentMoviePoster(movie))
-            }
-        }
+    fun buildPosterThumbnail(movie: Movie) {
+        attachNavigationFragment(FragmentMoviePoster(movie))
     }
 
-    fun buildPosterListOfMovie(){
-        when(val activity = context){
-            is AppMainActivity->{
-                activity.onAttachChildFragment(FragmentMovieList())
-            }
-        }
+    fun buildPosterListOfMovie() {
+        attachNavigationFragment(FragmentMovieList())
     }
 
-    private fun movieList() = repository.movies
-
-    private fun updatePoster(model: ResponseBody){
+    private fun updatePoster(model: ResponseBody) {
         actionPoster?.let {
             val posterBitmap = buildBitampFromStream(model.byteStream())
             it.updatePoster(context.buildDrawableAsset(posterBitmap))
         }
     }
+
+    private fun movieList() = repository.movies
 }

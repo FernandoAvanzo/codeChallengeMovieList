@@ -1,7 +1,10 @@
 package code.challenge.moviesInfoApp.infrastructure.defaultComponents.presenter
 
+import androidx.fragment.app.Fragment
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
+import code.challenge.moviesInfoApp.listOfMovies.view.activitys.AppMainActivity
+import code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMovieList
 
 abstract class DefaultPresenter(val view: DefaultView) {
 
@@ -26,6 +29,14 @@ abstract class DefaultPresenter(val view: DefaultView) {
                         else -> customSuccesBehavior(comunication.result)
                     }
                 }
+            }
+        }
+    }
+
+    fun attachNavigationFragment(fragment: Fragment){
+        when(val activity = context){
+            is AppMainActivity ->{
+                activity.onAttachChildFragment(fragment)
             }
         }
     }
