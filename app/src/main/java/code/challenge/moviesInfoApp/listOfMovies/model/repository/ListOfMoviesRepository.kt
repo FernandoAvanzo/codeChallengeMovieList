@@ -1,5 +1,6 @@
 package code.challenge.moviesInfoApp.listOfMovies.model.repository
 
+import code.challenge.moviesInfoApp.infrastructure.extensions.buildMoviePictureUrl
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.model.repository.provider.ListOfMoviesProvider
@@ -16,8 +17,16 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         )
     }
 
+    private val posterProvider by lazy {
+        ListOfMoviesProvider(
+            presenter.view.viewContext(),
+            presenter::defaultLoader,
+            buildMoviePictureUrl()
+        )
+    }
+
     fun loadUpComingMovies() = provider.loadUpComingMovies()
-    fun loadPosterPicture(movie: Movie) = provider.loadPosterPicture(movie.posterPath)
+    fun loadPosterPicture(movie: Movie) = posterProvider.loadPosterPicture(movie.posterPath)
 
     fun updatePage(page: ListOfMovies) {
         page.results.indices.map {
