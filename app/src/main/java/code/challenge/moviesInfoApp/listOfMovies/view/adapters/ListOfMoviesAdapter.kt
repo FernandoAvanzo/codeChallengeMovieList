@@ -27,11 +27,8 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
         updateMovieThumbnail(holder)
     }
 
-    private fun buildFragmentThumbnail(model: Movie) = presenter.buildPosterThumbnail(model)
-
     private fun updateMovieThumbnail(holder: DefaultHolder) {
         val item = holder.item
         val model = item.model?:Movie()
-        item.moviePosterIcon.onAttachFragment(buildFragmentThumbnail(model))
     }
 }
