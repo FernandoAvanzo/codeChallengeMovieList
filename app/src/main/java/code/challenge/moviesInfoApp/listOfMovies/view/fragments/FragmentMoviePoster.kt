@@ -17,7 +17,8 @@ class FragmentMoviePoster(private val movie: Movie = Movie()) :
 
     override fun fragmentLayout() = fragment_movie_poster
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onResume() {
+        super.onResume()
         presenter.loadPosterPicture(movie)
     }
 
