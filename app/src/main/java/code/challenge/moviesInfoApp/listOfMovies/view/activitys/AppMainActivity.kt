@@ -11,8 +11,9 @@ import code.challenge.moviesInfoApp.listOfMovies.view.fragments.FragmentMovieLis
 class AppMainActivity : DefaultActivity<MainActivityBinding>() {
     override fun activityLayout() = R.layout.main_activity
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
         activityBinding.mainContainerFragment.onAttachFragment(FragmentMovieList())
     }
+
 }
