@@ -1,10 +1,10 @@
 # Code Challenge Movie Info App
-======================================================================================================
- Aplicativo para estudo de tecnicas de programação.
+==========================================================================================
+
 
 Introdução
 ------------
-Estudo de caso de um aplicativo para listar novos lançamentos, o app exibe uma lista com os filmes que serão lançados
+ Aplicativo para estudo de tecnicas de programação. Estudo de caso de um aplicativo para listar novos lançamentos, o app exibe uma lista com os filmes que serão lançados
 e o usuario pode ver datalhes do filme selecionado
 
 Técnicas e arquiteuras
