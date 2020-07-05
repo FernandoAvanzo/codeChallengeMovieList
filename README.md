@@ -1,5 +1,5 @@
 # Code Challenge Movie Info App
-============================================================================
+============================================================================/n
  Aplicativo para estudo de tecnicas de programação.
 
 Introdução
