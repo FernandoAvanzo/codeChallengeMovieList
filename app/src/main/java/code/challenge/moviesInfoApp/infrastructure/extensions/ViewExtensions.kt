@@ -10,7 +10,7 @@ fun View.onAttachFragment(child: Fragment) {
             activity.supportFragmentManager
                 .beginTransaction()
                 .replace(this.id, child)
-                .commit()
+                .commitNow()
         }
     }
 }
