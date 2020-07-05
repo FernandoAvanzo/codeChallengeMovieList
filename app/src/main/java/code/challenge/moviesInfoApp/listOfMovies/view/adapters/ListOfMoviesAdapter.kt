@@ -5,7 +5,6 @@ import android.view.View
 import code.challenge.moviesInfoApp.R.layout.item_movie_list
 import code.challenge.moviesInfoApp.databinding.ItemMovieListBinding
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.adapter.DefaultAdapter
-import code.challenge.moviesInfoApp.infrastructure.extensions.onAttachFragment
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 
@@ -28,7 +27,20 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
         holder.item.model = presenter.takeMove(position)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        takeIf { checkPaginationSpace(position) }?.let {
+            when(hasNextPage()){
+                true->presenter.loadUpComingMovies(nextPage())
+            }
+        }
+        return super.getItemViewType(position)
+    }
+
     fun movieDetailsAction(model: Movie) = View.OnClickListener {
         presenter.buildPosterThumbnail(model)
     }
+
+    private fun nextPage() = presenter.nextPage()
+    private fun hasNextPage() = presenter.hasNextPage()
+    private fun checkPaginationSpace(position: Int) = position in 0 until itemCount
 }

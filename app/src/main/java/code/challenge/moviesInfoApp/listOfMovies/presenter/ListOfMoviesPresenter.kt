@@ -27,9 +27,10 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     }
 
     fun movieListSize() = repository.movies.size
-    fun loadUpComingMovies() = repository.loadUpComingMovies()
+    fun loadUpComingMovies(page: Int = 1) = repository.loadUpComingMovies(page)
     fun loadPosterPicture(movie: Movie) = repository.loadPosterPicture(movie)
-
+    fun hasNextPage() = repository.hasNextPage()
+    fun nextPage() = repository.nextPage()
     fun updateMovieList() = view.updateListView()
     fun refreshInsertItem(id: Int) = view.updateInsertedList(id)
     fun takeMove(id: Int) = movieList()
