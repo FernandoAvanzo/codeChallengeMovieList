@@ -1,5 +1,6 @@
 package code.challenge.moviesInfoApp.listOfMovies.model.repository
 
+import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.AuthApiModel
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildMoviePictureUrl
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
@@ -9,6 +10,8 @@ import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     val movies by lazy { ArrayList<Movie>() }
+
+    private val posterAuth by lazy { AuthApiModel(buildMoviePictureUrl(),"") }
 
     private val provider by lazy {
         ListOfMoviesProvider(
@@ -21,7 +24,7 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         ListOfMoviesProvider(
             presenter.view.viewContext(),
             presenter::defaultLoader,
-            buildMoviePictureUrl()
+            posterAuth
         )
     }
 

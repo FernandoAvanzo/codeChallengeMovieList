@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import code.challenge.moviesInfoApp.BuildConfig
+import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.AuthApiModel
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildApiAccessKey
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildMovieServiceUrl
 import code.challenge.moviesInfoApp.infrastructure.extensions.checkNetworkConnection
@@ -25,30 +26,33 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-open class RestProvider(val context: Context, url: String = buildMovieServiceUrl()) {
+open class RestProvider(val context: Context, auth: AuthApiModel = AuthApiModel()) {
 
     companion object {
-        var token = buildApiAccessKey()
         private val LOGGING_LEVEL: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
         private const val TIMEOUT_SECONDS = 500L
     }
 
     var retrofit: Retrofit
 
-    private val mAuthInterceptor = Interceptor { chain ->
-        val original = chain.request() as Request
+    private val token by lazy { auth.token }
 
-        return@Interceptor when (token.isNotEmpty()) {
-            true -> {
-                val request = original.newBuilder()
-                    .header("Authorization", token)
-                    .build() as Request
-                chain.proceed(request) as Response
-            }
-            else -> {
-                val request = original.newBuilder()
-                    .build() as Request
-                chain.proceed(request) as Response
+    private val mAuthInterceptor by lazy {
+        Interceptor { chain ->
+            val original = chain.request() as Request
+
+            return@Interceptor when (token.isNotEmpty()) {
+                true -> {
+                    val request = original.newBuilder()
+                        .header("Authorization", token)
+                        .build() as Request
+                    chain.proceed(request) as Response
+                }
+                else -> {
+                    val request = original.newBuilder()
+                        .build() as Request
+                    chain.proceed(request) as Response
+                }
             }
         }
     }
@@ -77,7 +81,7 @@ open class RestProvider(val context: Context, url: String = buildMovieServiceUrl
 
         retrofit = Retrofit
             .Builder()
-            .baseUrl(url)
+            .baseUrl(auth.url)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(client)
