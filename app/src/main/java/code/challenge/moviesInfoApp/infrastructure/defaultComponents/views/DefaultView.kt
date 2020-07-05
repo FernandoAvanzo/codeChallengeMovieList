@@ -1,6 +1,7 @@
 package code.challenge.moviesInfoApp.infrastructure.defaultComponents.views
 
 import android.content.Context
+import androidx.fragment.app.Fragment
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
 
 interface DefaultView {
@@ -15,5 +16,6 @@ interface DefaultView {
     fun viewContext(): Context
     fun updateListView() {}
     fun updateInsertedList(id: Int) {}
+    fun onAttachChildFragment(child: Fragment){}
 
 }

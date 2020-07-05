@@ -14,7 +14,7 @@ abstract class DefaultFragment<T : ViewDataBinding> : Fragment(), DefaultView {
 
     abstract fun fragmentLayout(): Int
 
-    override fun viewContext() = requireContext()
+    override fun viewContext() = requireActivity()
 
     override fun onCreateView(
         inflater: LayoutInflater,
