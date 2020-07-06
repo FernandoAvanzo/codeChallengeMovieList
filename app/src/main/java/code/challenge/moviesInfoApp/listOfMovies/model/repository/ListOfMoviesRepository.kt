@@ -11,9 +11,11 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     private var currentPage = ListOfMovies()
 
-    val movies by lazy { ArrayList<Movie>() }
+    val movies by lazy { HashMap<Int, Movie>() }
 
-    private val posterAuth by lazy { AuthApiModel(buildMoviePictureUrl(),"") }
+    private val keyMovies by lazy { HashMap<Movie, Int>() }
+
+    private val posterAuth by lazy { AuthApiModel(buildMoviePictureUrl(), "") }
 
     private val provider by lazy {
         ListOfMoviesProvider(
@@ -39,10 +41,19 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     fun updatePage(page: ListOfMovies) {
         currentPage = page
+        var index = movies.size
         page.results.indices.map {
-            movies.add(page.results[it])
+            index = updateMovies(page.results[it], index)
             presenter.refreshInsertItem(it)
         }
         presenter.updateMovieList()
+    }
+
+    private fun updateMovies(movie: Movie, index: Int): Int {
+        return takeIf { keyMovies.containsKey(movie).not() }?.let {
+            movies[index] = movie
+            keyMovies[movie] = index
+            index + 1
+        } ?: index
     }
 }

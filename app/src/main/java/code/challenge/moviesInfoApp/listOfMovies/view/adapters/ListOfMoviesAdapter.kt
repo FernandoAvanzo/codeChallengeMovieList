@@ -7,6 +7,7 @@ import code.challenge.moviesInfoApp.databinding.ItemMovieListBinding
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.adapter.DefaultAdapter
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
+import kotlin.math.absoluteValue
 
 class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBinding>(context){
 
@@ -42,5 +43,6 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
 
     private fun nextPage() = presenter.nextPage()
     private fun hasNextPage() = presenter.hasNextPage()
-    private fun checkPaginationSpace(position: Int) = position in 0 until itemCount
+    private fun checkPaginationSpace(position: Int) =
+        position in (itemCount -10).absoluteValue until itemCount
 }
