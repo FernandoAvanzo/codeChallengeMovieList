@@ -33,11 +33,9 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
     }
 
     fun loadPosterPicture(movie: Movie) = posterProvider.loadPosterPicture(movie.posterPath)
-    fun hasNextPage()=currentPage.page < currentPage.totalPages
-    fun nextPage() = currentPage.page+1
-
-    fun loadUpComingMovies(page: Int = 1) =
-        provider.loadUpComingMovies(page)
+    fun loadUpComingMovies(page: Int = 1) = provider.loadUpComingMovies(page)
+    fun hasNextPage() = currentPage.page < currentPage.totalPages
+    fun nextPage() = currentPage.page + 1
 
     fun updatePage(page: ListOfMovies) {
         currentPage = page
