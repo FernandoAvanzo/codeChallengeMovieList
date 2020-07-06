@@ -44,7 +44,7 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         var index = movies.size
         page.results.indices.map {
             index = updateMovies(page.results[it], index)
-            presenter.refreshInsertItem(it)
+            presenter.refreshInsertItem(index)
         }
         presenter.updateMovieList()
     }
