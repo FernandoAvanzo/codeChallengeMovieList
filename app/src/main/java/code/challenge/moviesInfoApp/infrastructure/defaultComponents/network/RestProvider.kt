@@ -7,8 +7,6 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import code.challenge.moviesInfoApp.BuildConfig
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.AuthApiModel
-import code.challenge.moviesInfoApp.infrastructure.extensions.buildApiAccessKey
-import code.challenge.moviesInfoApp.infrastructure.extensions.buildMovieServiceUrl
 import code.challenge.moviesInfoApp.infrastructure.extensions.checkNetworkConnection
 import code.challenge.moviesInfoApp.infrastructure.extensions.isInternetAccessible
 import com.google.gson.Gson
