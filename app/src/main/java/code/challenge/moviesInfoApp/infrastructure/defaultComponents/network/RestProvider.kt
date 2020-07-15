@@ -68,7 +68,7 @@ open class RestProvider(val context: Context, auth: AuthApiModel = AuthApiModel(
             .addInterceptor(mAuthInterceptor)
             .addInterceptor(logInterceptor)
             .retryOnConnectionFailure(true)
-            .connectionPool(ConnectionPool(0, 1, TimeUnit.NANOSECONDS))
+            .connectionPool(ConnectionPool(10, TIMEOUT_SECONDS, TimeUnit.SECONDS))
 
 
         val client = clientBuilder.build()
