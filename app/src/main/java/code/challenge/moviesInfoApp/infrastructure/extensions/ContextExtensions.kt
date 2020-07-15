@@ -54,12 +54,14 @@ fun buildBitampFromStream(byteStrean: InputStream): Bitmap {
 
 fun isInternetAccessible(): Boolean {
     return try {
-        val urlc = URL("http://www.google.com").openConnection() as HttpURLConnection
-        urlc.setRequestProperty("User-Agent", "Test")
-        urlc.setRequestProperty("Connection", "close")
-        urlc.connectTimeout = 1500
-        urlc.connect()
-        urlc.responseCode == 200
+        val urlc = URL("http://www.google.com").openConnection() as? HttpURLConnection
+        urlc?.let {
+            it.setRequestProperty("User-Agent", "Test")
+            it.setRequestProperty("Connection", "close")
+            it.connectTimeout = 1500
+            it.connect()
+            it.responseCode == 200
+        } ?: false
     } catch (e: Exception) {
         false
     }
