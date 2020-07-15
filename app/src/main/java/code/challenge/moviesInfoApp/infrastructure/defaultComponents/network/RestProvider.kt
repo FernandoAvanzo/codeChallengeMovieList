@@ -87,15 +87,6 @@ open class RestProvider(val context: Context, auth: AuthApiModel = AuthApiModel(
     }
 }
 
-@Suppress("unused")
-fun Completable.setCallback(callback: DefaultRequestCallback) {
-    subscribeOn(Schedulers.newThread())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnError(::handleNetworkError)
-        .subscribe(callback::onComplete, callback::onError)
-        .disposeOnStopEvent(callback.lifecycle)
-}
-
 class ConnectivityAwareInterceptor(private val context: Context) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
