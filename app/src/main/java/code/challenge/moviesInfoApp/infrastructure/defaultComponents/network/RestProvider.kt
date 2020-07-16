@@ -31,7 +31,7 @@ open class RestProvider(val context: Context, auth: AuthApiModel = AuthApiModel(
         private const val TIMEOUT_SECONDS = 500L
     }
 
-    var retrofit: Retrofit
+    val retrofit: Retrofit
 
     private val token by lazy { auth.token }
 
@@ -59,6 +59,7 @@ open class RestProvider(val context: Context, auth: AuthApiModel = AuthApiModel(
         val logInterceptor = HttpLoggingInterceptor().apply {
             level = LOGGING_LEVEL
         }
+
         val clientBuilder = OkHttpClient()
             .newBuilder()
             .callTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
@@ -70,12 +71,9 @@ open class RestProvider(val context: Context, auth: AuthApiModel = AuthApiModel(
             .retryOnConnectionFailure(true)
             .connectionPool(ConnectionPool(10, TIMEOUT_SECONDS, TimeUnit.SECONDS))
 
-
         val client = clientBuilder.build()
 
         val gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
-
-
 
         retrofit = Retrofit
             .Builder()
