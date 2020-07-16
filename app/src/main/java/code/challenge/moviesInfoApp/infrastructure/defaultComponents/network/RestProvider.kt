@@ -11,7 +11,6 @@ import code.challenge.moviesInfoApp.infrastructure.extensions.checkNetworkConnec
 import code.challenge.moviesInfoApp.infrastructure.extensions.isInternetAccessible
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
