@@ -41,6 +41,9 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         currentPage = page
         var index = movies.size
         page.results.indices.map {
+            //TODO fazer a chamada do icone da lista aqui,
+            //TODO construir uma fila para inserir o bitmap das capas
+            //TODO mover o fluxo abaixo para o retorno da chamada da capa
             index = updateMovies(page.results[it], index)
             presenter.refreshInsertItem(index)
         }
