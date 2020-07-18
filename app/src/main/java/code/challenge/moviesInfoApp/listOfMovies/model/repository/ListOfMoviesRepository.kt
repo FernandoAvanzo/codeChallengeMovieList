@@ -1,17 +1,22 @@
 package code.challenge.moviesInfoApp.listOfMovies.model.repository
 
+import android.graphics.Bitmap
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.AuthApiModel
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildMoviePictureUrl
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
+import code.challenge.moviesInfoApp.listOfMovies.model.entities.ThumbnailRequest
 import code.challenge.moviesInfoApp.listOfMovies.model.repository.provider.ListOfMoviesProvider
 import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 
 class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     private var currentPage = ListOfMovies()
+    private var currentIndex = 0
 
     val movies by lazy { HashMap<Int, Movie>() }
+
+    private val moviesThumbnails by lazy { HashMap<Movie, Bitmap>() }
 
     private val keyMovies by lazy { HashMap<Movie, Int>() }
 
@@ -34,18 +39,26 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     fun loadPosterPicture(movie: Movie) = posterProvider.loadPosterPicture(movie.posterPath)
     fun loadUpComingMovies(page: Int = 1) = provider.loadUpComingMovies(page)
+    fun addThumbnail(movie: Movie, thumbnail: Bitmap) = moviesThumbnails.put(movie, thumbnail)
+    fun getThumbnail(movie: Movie) = moviesThumbnails[movie]
     fun hasNextPage() = currentPage.page < currentPage.totalPages
     fun nextPage() = currentPage.page + 1
 
+    fun refreshMovieList(thumbnail: ThumbnailRequest){
+        currentIndex = updateMovies(thumbnail.movie, thumbnail.movieId)
+        presenter.refreshInsertItem(currentIndex)
+        presenter.updateMovieList()
+    }
+
     fun updatePage(page: ListOfMovies) {
         currentPage = page
-        var index = movies.size
+        currentIndex = movies.size
         page.results.indices.map {
             //TODO fazer a chamada do icone da lista aqui,
             //TODO construir uma fila para inserir o bitmap das capas
             //TODO mover o fluxo abaixo para o retorno da chamada da capa
-            index = updateMovies(page.results[it], index)
-            presenter.refreshInsertItem(index)
+            val thumbnailRequest = ThumbnailRequest(currentIndex,page.results[it])
+            presenter.loadThumbnailPicture(thumbnailRequest)
         }
         presenter.updateMovieList()
     }
