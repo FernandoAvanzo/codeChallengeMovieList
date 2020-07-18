@@ -41,6 +41,9 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     fun nextPage() = repository.nextPage()
     fun updateMovieList() = view.updateListView()
     fun refreshInsertItem(id: Int) = view.updateInsertedList(id)
+    fun buildPosterThumbnail(movie: Movie) = attachNavigationFragment(FragmentMoviePoster(movie))
+    fun buildPosterListOfMovie() = attachNavigationFragment(FragmentMovieList())
+
     fun takeMove(id: Int) = movieList()
         .takeIf { id in 0 until it.size }?.get(id) ?: Movie()
 
@@ -53,14 +56,6 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
         picturetype = THUMBNAIL_PICTURE
         thumbnailRequest = thumbnail
         repository.loadPosterPicture(thumbnail.movie)
-    }
-
-    fun buildPosterThumbnail(movie: Movie) {
-        attachNavigationFragment(FragmentMoviePoster(movie))
-    }
-
-    fun buildPosterListOfMovie() {
-        attachNavigationFragment(FragmentMovieList())
     }
 
     private fun pictureResponse(model: ResponseBody, request: Any? = Any()) {
