@@ -12,7 +12,6 @@ import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     private var currentPage = ListOfMovies()
-    private var currentIndex = 0
 
     val movies by lazy { HashMap<Int, Movie>() }
 
@@ -45,20 +44,18 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
     fun nextPage() = currentPage.page + 1
 
     fun refreshMovieList(thumbnail: ThumbnailRequest){
-        currentIndex = updateMovies(thumbnail.movie, thumbnail.movieId)
-        presenter.refreshInsertItem(currentIndex)
+        presenter.refreshInsertItem(thumbnail.movieId)
         presenter.updateMovieList()
     }
 
     fun updatePage(page: ListOfMovies) {
         currentPage = page
-        currentIndex = movies.size
+        var index = movies.size
         page.results.indices.map {
             //TODO fazer a chamada do icone da lista aqui,
             //TODO construir uma fila para inserir o bitmap das capas
             //TODO mover o fluxo abaixo para o retorno da chamada da capa
-            val thumbnailRequest = ThumbnailRequest(currentIndex,page.results[it])
-            presenter.loadThumbnailPicture(thumbnailRequest)
+            index = updateMovies(page.results[it], index)
         }
         presenter.updateMovieList()
     }
@@ -67,6 +64,7 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         return takeIf { keyMovies.containsKey(movie).not() }?.let {
             movies[index] = movie
             keyMovies[movie] = index
+            presenter.loadThumbnailPicture(ThumbnailRequest(index,movie))
             index + 1
         } ?: index
     }

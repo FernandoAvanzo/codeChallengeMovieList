@@ -50,9 +50,11 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     }
 
     fun loadThumbnailPicture(thumbnail: ThumbnailRequest) {
-        picturetype = THUMBNAIL_PICTURE
-        thumbnailRequest = thumbnail
-        repository.loadPosterPicture(thumbnail.movie)
+        try {
+            picturetype = THUMBNAIL_PICTURE
+            thumbnailRequest = thumbnail
+            repository.loadPosterPicture(thumbnail.movie)
+        }catch (e: Exception){}
     }
 
     fun buildPosterThumbnail(movie: Movie) {
