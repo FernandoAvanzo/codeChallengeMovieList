@@ -11,9 +11,11 @@ import code.challenge.moviesInfoApp.infrastructure.extensions.buildDrawableAsset
 import code.challenge.moviesInfoApp.infrastructure.extensions.getDrawable
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
+import code.challenge.moviesInfoApp.listOfMovies.view.decorations.ListOfMoviesDecoration.PaginationAction
 import kotlin.math.absoluteValue
 
-class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBinding>(context){
+class ListOfMoviesAdapter(context: Context) :
+    DefaultAdapter<ItemMovieListBinding>(context), PaginationAction {
 
     private val presenter by lazy { ListOfMoviesPresenter(this) }
 
@@ -26,19 +28,17 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
     override fun getItemCount() = presenter.movieListSize()
     override fun updateListView() = notifyDataSetChanged()
     override fun updateInsertedList(id: Int) = notifyItemInserted(id)
+    override fun paginationSpace(position: Int) = checkPaginationSpace(position)
 
     override fun onBindViewHolder(holder: DefaultHolder, position: Int) {
         holder.item.controller = this
         holder.item.model = presenter.takeMove(position)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        takeIf { checkPaginationSpace(position) }?.let {
-            when (hasNextPage()) {
-                true -> presenter.loadUpComingMovies(nextPage())
-            }
+    override fun loadNextPage() {
+        when (hasNextPage()) {
+            true -> presenter.loadUpComingMovies(nextPage())
         }
-        return super.getItemViewType(position)
     }
 
     fun movieDetailsAction(model: Movie) = View.OnClickListener {
