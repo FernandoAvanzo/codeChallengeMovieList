@@ -19,8 +19,8 @@
         android:onClick="@{controller.movieDetailsAction(model)}">
         <ImageView
             android:id="@+id/movie_poster_icon"
-            android:layout_width="30dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:clickable="false"
             android:focusable="false"
             android:src="@{controller.movieThumbnail(model)}"
@@ -32,8 +32,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintVertical_bias="0"
-            tools:layout_height="60dp"
-            tools:layout_width="60dp"/>
+            tools:layout_height="90dp"
+            tools:layout_width="60dp"
+            tools:ignore="ContentDescription" />
         <TextView
             android:id="@+id/movie_title_label"
             android:layout_width="wrap_content"
