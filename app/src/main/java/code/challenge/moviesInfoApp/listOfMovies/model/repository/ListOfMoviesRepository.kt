@@ -60,9 +60,9 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     private fun updateMovies(movie: Movie, index: Int): Int {
         return takeIf { keyMovies.containsKey(movie).not() }?.let {
+            updateThumbnail(ThumbnailRequest(index, movie))
             movies[index] = movie
             keyMovies[movie] = index
-            updateThumbnail(ThumbnailRequest(index, movie))
             index + 1
         } ?: index
     }
