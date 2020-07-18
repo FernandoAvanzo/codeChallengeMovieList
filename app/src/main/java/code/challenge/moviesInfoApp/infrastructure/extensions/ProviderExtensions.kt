@@ -7,7 +7,8 @@ import retrofit2.Response
 
 fun <T> defaultCallback(
     loader: (ComunicationProtocolModel) -> Any,
-    context: Context
+    context: Context,
+    request: Any = Any()
 ): RequestCallback<T> {
     val comunication = ComunicationProtocolModel()
     comunication.load = true
@@ -16,6 +17,7 @@ fun <T> defaultCallback(
         override fun onSuccess(response: T) {
             super.onSuccess(response)
             comunication.result = response
+            comunication.request = request
             comunication.load = false
             comunication.isError = false
             comunication.responseCode = 200
@@ -26,6 +28,7 @@ fun <T> defaultCallback(
             super.onFailure(message, response)
             comunication.load = false
             comunication.isError = true
+            comunication.request = request
             comunication.responseCode = response.code()
             comunication.message = message
             loader(comunication)
@@ -35,6 +38,7 @@ fun <T> defaultCallback(
             super.onError(throwable)
             comunication.load = false
             comunication.isError = true
+            comunication.request = request
             comunication.responseCode = 500
             comunication.message = ""
             loader(comunication)
