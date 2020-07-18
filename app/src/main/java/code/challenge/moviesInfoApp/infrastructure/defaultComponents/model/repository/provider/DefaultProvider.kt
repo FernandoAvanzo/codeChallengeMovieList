@@ -2,8 +2,7 @@ package code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.repo
 
 import android.content.Context
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.AuthApiModel
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.network.RestProvider
-import code.challenge.moviesInfoApp.infrastructure.extensions.buildMovieServiceUrl
+import code.challenge.moviesInfoApp.infrastructure.network.RestProvider
 
 abstract class DefaultProvider<T>(
     context: Context,

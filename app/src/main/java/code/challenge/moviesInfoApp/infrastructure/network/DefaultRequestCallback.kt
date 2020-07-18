@@ -1,4 +1,4 @@
-package code.challenge.moviesInfoApp.infrastructure.defaultComponents.network
+package code.challenge.moviesInfoApp.infrastructure.network
 
 import androidx.lifecycle.Lifecycle
 import retrofit2.Response

@@ -2,7 +2,7 @@ package code.challenge.moviesInfoApp.infrastructure.extensions
 
 import android.content.Context
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.network.RequestCallback
+import code.challenge.moviesInfoApp.infrastructure.network.RequestCallback
 import retrofit2.Response
 
 fun <T> defaultCallback(

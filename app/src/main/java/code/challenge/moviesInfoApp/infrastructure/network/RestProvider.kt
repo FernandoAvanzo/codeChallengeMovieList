@@ -1,4 +1,4 @@
-package code.challenge.moviesInfoApp.infrastructure.defaultComponents.network
+package code.challenge.moviesInfoApp.infrastructure.network
 
 import android.content.Context
 import android.util.Log
