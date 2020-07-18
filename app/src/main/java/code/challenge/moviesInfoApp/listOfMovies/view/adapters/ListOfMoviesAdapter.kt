@@ -54,5 +54,5 @@ class ListOfMoviesAdapter(context: Context) :
     private fun nextPage() = presenter.nextPage()
     private fun hasNextPage() = presenter.hasNextPage()
     private fun checkPaginationSpace(position: Int) =
-        position in (itemCount - 10).absoluteValue until itemCount
+        position in (itemCount - 15).absoluteValue until itemCount
 }
