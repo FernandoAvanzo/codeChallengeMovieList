@@ -15,8 +15,6 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     val movies by lazy { HashMap<Int, Movie>() }
 
-    private val moviesThumbnails by lazy { HashMap<String, Bitmap>() }
-
     private val keyMovies by lazy { HashMap<Movie, Int>() }
 
     private val posterAuth by lazy { AuthApiModel(buildMoviePictureUrl(), "") }
@@ -36,7 +34,6 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         )
     }
 
-    fun loadPosterPicture(movie: Movie) = posterProvider.loadPosterPicture(movie.posterPath)
     fun loadUpComingMovies(page: Int = 1) = provider.loadUpComingMovies(page)
     fun addThumbnail(thumbKey: String, thumbnail: Bitmap) = moviesThumbnails.put(thumbKey, thumbnail)
     fun getThumbnail(movie: Movie) = moviesThumbnails[movie.posterPath]
@@ -45,6 +42,12 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     fun refreshMovieList(thumbnail: ThumbnailRequest) =
         presenter.refreshInsertItem(thumbnail.movieId)
+
+    fun loadPosterPicture(movie: Movie?){
+        movie?.let {
+            posterProvider.loadPosterPicture(it.posterPath?:"")
+        }
+    }
 
     fun updatePage(page: ListOfMovies) {
         currentPage = page
@@ -59,8 +62,12 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         return takeIf { keyMovies.containsKey(movie).not() }?.let {
             movies[index] = movie
             keyMovies[movie] = index
-            presenter.loadThumbnailPicture(ThumbnailRequest(index,movie))
+            presenter.loadThumbnailPicture(ThumbnailRequest(index, movie))
             index + 1
         } ?: index
+    }
+
+    companion object {
+        private val moviesThumbnails by lazy { HashMap<String, Bitmap>() }
     }
 }
