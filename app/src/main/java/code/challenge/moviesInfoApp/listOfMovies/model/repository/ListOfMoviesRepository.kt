@@ -62,9 +62,16 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         return takeIf { keyMovies.containsKey(movie).not() }?.let {
             movies[index] = movie
             keyMovies[movie] = index
-            presenter.loadThumbnailPicture(ThumbnailRequest(index, movie))
+            updateThumbnail(ThumbnailRequest(index, movie))
             index + 1
         } ?: index
+    }
+
+    private fun updateThumbnail(thumbnail: ThumbnailRequest){
+        val movie = thumbnail.movie
+        takeIf { moviesThumbnails.containsKey(movie.posterPath).not() }?.let {
+            presenter.loadThumbnailPicture(thumbnail)
+        }
     }
 
     companion object {
