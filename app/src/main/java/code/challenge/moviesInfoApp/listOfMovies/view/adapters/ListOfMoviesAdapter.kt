@@ -1,10 +1,14 @@
 package code.challenge.moviesInfoApp.listOfMovies.view.adapters
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.View
+import code.challenge.moviesInfoApp.R.drawable.ic_launcher_foreground
 import code.challenge.moviesInfoApp.R.layout.item_movie_list
 import code.challenge.moviesInfoApp.databinding.ItemMovieListBinding
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.adapter.DefaultAdapter
+import code.challenge.moviesInfoApp.infrastructure.extensions.buildDrawableAsset
+import code.challenge.moviesInfoApp.infrastructure.extensions.getDrawable
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.Movie
 import code.challenge.moviesInfoApp.listOfMovies.presenter.ListOfMoviesPresenter
 import kotlin.math.absoluteValue
@@ -30,8 +34,8 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
 
     override fun getItemViewType(position: Int): Int {
         takeIf { checkPaginationSpace(position) }?.let {
-            when(hasNextPage()){
-                true->presenter.loadUpComingMovies(nextPage())
+            when (hasNextPage()) {
+                true -> presenter.loadUpComingMovies(nextPage())
             }
         }
         return super.getItemViewType(position)
@@ -41,8 +45,14 @@ class ListOfMoviesAdapter(context: Context) : DefaultAdapter<ItemMovieListBindin
         presenter.buildPosterThumbnail(model)
     }
 
+    fun movieThumbnail(model: Movie): Drawable {
+        return presenter.getThumbnail(model)?.let {
+            baseContext.buildDrawableAsset(it)
+        } ?: ic_launcher_foreground.getDrawable(baseContext)
+    }
+
     private fun nextPage() = presenter.nextPage()
     private fun hasNextPage() = presenter.hasNextPage()
     private fun checkPaginationSpace(position: Int) =
-        position in (itemCount -10).absoluteValue until itemCount
+        position in (itemCount - 10).absoluteValue until itemCount
 }

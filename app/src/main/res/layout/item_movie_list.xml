@@ -17,12 +17,13 @@
         android:clickable="true"
         android:focusable="true"
         android:onClick="@{controller.movieDetailsAction(model)}">
-        <FrameLayout
+        <ImageView
             android:id="@+id/movie_poster_icon"
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="60dp"
             android:clickable="false"
             android:focusable="false"
+            android:src="@{controller.movieThumbnail(model)}"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
