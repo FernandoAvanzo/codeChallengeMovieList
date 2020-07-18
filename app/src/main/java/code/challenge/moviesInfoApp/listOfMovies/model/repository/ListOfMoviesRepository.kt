@@ -43,10 +43,8 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
     fun hasNextPage() = currentPage.page < currentPage.totalPages
     fun nextPage() = currentPage.page + 1
 
-    fun refreshMovieList(thumbnail: ThumbnailRequest){
+    fun refreshMovieList(thumbnail: ThumbnailRequest) =
         presenter.refreshInsertItem(thumbnail.movieId)
-        presenter.updateMovieList()
-    }
 
     fun updatePage(page: ListOfMovies) {
         currentPage = page
