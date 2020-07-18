@@ -23,6 +23,6 @@ class ListOfMoviesProvider(
 
     fun loadPosterPicture(posterPath: String) {
         service.loadPosterPictureService(posterPath.replace("/",""))
-            .setCallback(defaultCallback(loader, context))
+            .setCallback(defaultCallback(loader, context, posterPath))
     }
 }

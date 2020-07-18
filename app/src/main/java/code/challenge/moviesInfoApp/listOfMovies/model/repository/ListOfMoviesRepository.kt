@@ -15,7 +15,7 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     val movies by lazy { HashMap<Int, Movie>() }
 
-    private val moviesThumbnails by lazy { HashMap<Movie, Bitmap>() }
+    private val moviesThumbnails by lazy { HashMap<String, Bitmap>() }
 
     private val keyMovies by lazy { HashMap<Movie, Int>() }
 
@@ -38,8 +38,8 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     fun loadPosterPicture(movie: Movie) = posterProvider.loadPosterPicture(movie.posterPath)
     fun loadUpComingMovies(page: Int = 1) = provider.loadUpComingMovies(page)
-    fun addThumbnail(movie: Movie, thumbnail: Bitmap) = moviesThumbnails.put(movie, thumbnail)
-    fun getThumbnail(movie: Movie) = moviesThumbnails[movie]
+    fun addThumbnail(thumbKey: String, thumbnail: Bitmap) = moviesThumbnails.put(thumbKey, thumbnail)
+    fun getThumbnail(movie: Movie) = moviesThumbnails[movie.posterPath]
     fun hasNextPage() = currentPage.page < currentPage.totalPages
     fun nextPage() = currentPage.page + 1
 

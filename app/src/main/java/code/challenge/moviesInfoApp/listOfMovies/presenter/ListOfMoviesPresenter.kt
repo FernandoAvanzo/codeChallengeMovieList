@@ -25,11 +25,11 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     private val repository by lazy { ListOfMoviesRepository(this) }
     private val actionPoster by lazy { view as? ActionMoviePoster }
 
-    override fun customSuccesBehavior(result: Any?) {
+    override fun customSuccesBehavior(result: Any?, request: Any?) {
         result?.let {
             when (it) {
                 is ListOfMovies -> repository.updatePage(it)
-                is ResponseBody -> pictureResponse(it)
+                is ResponseBody -> pictureResponse(it, request)
             }
         }
     }
@@ -65,16 +65,17 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
         attachNavigationFragment(FragmentMovieList())
     }
 
-    private fun pictureResponse(model: ResponseBody) {
+    private fun pictureResponse(model: ResponseBody, request: Any? = Any()) {
         when (picturetype) {
-            THUMBNAIL_PICTURE -> buildMovieThumbnail(model)
+            THUMBNAIL_PICTURE -> buildMovieThumbnail(model, request)
             POSTER_PICTURE -> updatePoster(model)
         }
     }
 
-    private fun buildMovieThumbnail(model: ResponseBody) {
+    private fun buildMovieThumbnail(model: ResponseBody, request: Any? = Any()) {
         val thumbnailBitmap = buildBitampFromStream(model.byteStream())
-        addMovieThumbnail(thumbnailBitmap)
+        val thumbKey = request as? String ?: ""
+        addMovieThumbnail(thumbKey, thumbnailBitmap)
         refreshMovieList()
     }
 
@@ -87,6 +88,6 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
 
     private fun movieList() = repository.movies
     private fun refreshMovieList() = repository.refreshMovieList(thumbnailRequest)
-    private fun addMovieThumbnail(thumbnail: Bitmap) =
-        repository.addThumbnail(thumbnailRequest.movie, thumbnail)
+    private fun addMovieThumbnail(thumbKey: String, thumbnail: Bitmap) =
+        repository.addThumbnail(thumbKey, thumbnail)
 }

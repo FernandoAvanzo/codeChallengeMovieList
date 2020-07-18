@@ -15,7 +15,7 @@ abstract class DefaultPresenter(val view: DefaultView) {
         flowErrorControl = -1
     }
 
-    abstract fun customSuccesBehavior(result: Any?)
+    abstract fun customSuccesBehavior(result: Any?, request: Any? = Any())
 
     fun defaultLoader(comunication: ComunicationProtocolModel) {
         comunication.load?.let {
@@ -25,7 +25,7 @@ abstract class DefaultPresenter(val view: DefaultView) {
                     customLoaderBehavior(it)
                     when (comunication.isError) {
                         true -> customErrorBehavior(comunication)
-                        else -> customSuccesBehavior(comunication.result)
+                        else -> customSuccesBehavior(comunication.result, comunication.request)
                     }
                 }
             }
