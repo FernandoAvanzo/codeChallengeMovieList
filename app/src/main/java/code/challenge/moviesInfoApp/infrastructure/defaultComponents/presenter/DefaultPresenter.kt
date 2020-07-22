@@ -7,15 +7,11 @@ import code.challenge.moviesInfoApp.listOfMovies.view.activitys.AppMainActivity
 
 abstract class DefaultPresenter(val view: DefaultView) {
 
-    var flowErrorControl = -1
-
     val context by lazy { view.viewContext() }
 
-    init {
-        flowErrorControl = -1
-    }
-
     abstract fun customSuccesBehavior(result: Any?, request: Any? = Any())
+    abstract fun customErrorBehavior(comunication: ComunicationProtocolModel)
+    abstract fun customLoaderBehavior(isLoading: Boolean)
 
     fun defaultLoader(comunication: ComunicationProtocolModel) {
         comunication.load?.let {
@@ -32,24 +28,24 @@ abstract class DefaultPresenter(val view: DefaultView) {
         }
     }
 
-    fun attachNavigationFragment(fragment: Fragment){
-        when(val activity = context){
-            is AppMainActivity ->{
-                activity.onAttachChildFragment(fragment)
-            }
-        }
+    fun defaultErrorBehavior(comunication: ComunicationProtocolModel) {
+        view.onFailure(comunication)
+        view.onError(comunication)
     }
 
-    private fun customLoaderBehavior(isLoading: Boolean) {
+    fun defaultLoaderBehavior(isLoading: Boolean) {
         when (isLoading) {
             true -> view.showLoading()
             else -> view.hideLoading()
         }
     }
 
-    private fun customErrorBehavior(comunication: ComunicationProtocolModel) {
-         view.onFailure(comunication)
-         view.onError(comunication)
+    fun attachNavigationFragment(fragment: Fragment){
+        when(val activity = context){
+            is AppMainActivity ->{
+                activity.onAttachChildFragment(fragment)
+            }
+        }
     }
 
 }
