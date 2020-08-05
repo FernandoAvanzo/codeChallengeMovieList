@@ -39,11 +39,7 @@ abstract class DefaultPresenter(val view: DefaultView): CustomPresenterBehaviors
     }
 
     fun attachNavigationFragment(fragment: Fragment){
-        when(val activity = context){
-            is AppMainActivity ->{
-                activity.onAttachChildFragment(fragment)
-            }
-        }
+        val activity = context as? AppMainActivity
+        activity?.onAttachChildFragment(fragment)
     }
-
 }
