@@ -42,6 +42,8 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     fun nextPage() = repository.nextPage()
     fun updateMovieList() = view.updateListView()
     fun refreshInsertItem(id: Int) = view.updateInsertedList(id)
+    //TODO - Criar um view model para abrir um novo fragment
+    //TODO -  amarrar o observer no FragmentMovieList
     fun buildPosterThumbnail(movie: Movie) = attachNavigationFragment(FragmentMoviePoster(movie))
     fun buildPosterListOfMovie() = attachNavigationFragment(FragmentMovieList())
 
