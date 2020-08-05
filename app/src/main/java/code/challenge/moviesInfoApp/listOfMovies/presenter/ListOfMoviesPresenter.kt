@@ -26,11 +26,6 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     private val repository by lazy { ListOfMoviesRepository(this) }
     private val actionPoster by lazy { view as? ActionMoviePoster }
 
-    override fun customLoaderBehavior(isLoading: Boolean) = this.defaultLoaderBehavior(isLoading)
-
-    override fun customErrorBehavior(comunication: ComunicationProtocolModel) =
-        this.defaultErrorBehavior(comunication)
-
     override fun customSuccesBehavior(result: Any?, request: Any?) {
         result?.let {
             when (it) {

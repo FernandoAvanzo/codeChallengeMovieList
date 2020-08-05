@@ -5,13 +5,23 @@ import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entit
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
 import code.challenge.moviesInfoApp.listOfMovies.view.activitys.AppMainActivity
 
-abstract class DefaultPresenter(val view: DefaultView) {
+abstract class DefaultPresenter(val view: DefaultView): CustomPresenterBehaviors {
 
     val context by lazy { view.viewContext() }
 
     abstract fun customSuccesBehavior(result: Any?, request: Any? = Any())
-    abstract fun customErrorBehavior(comunication: ComunicationProtocolModel)
-    abstract fun customLoaderBehavior(isLoading: Boolean)
+
+    override fun customErrorBehavior(comunication: ComunicationProtocolModel){
+        view.onFailure(comunication)
+        view.onError(comunication)
+    }
+
+    override fun customLoaderBehavior(isLoading: Boolean){
+        when (isLoading) {
+            true -> view.showLoading()
+            else -> view.hideLoading()
+        }
+    }
 
     fun defaultLoader(comunication: ComunicationProtocolModel) {
         comunication.load?.let {
@@ -25,18 +35,6 @@ abstract class DefaultPresenter(val view: DefaultView) {
                     }
                 }
             }
-        }
-    }
-
-    fun defaultErrorBehavior(comunication: ComunicationProtocolModel) {
-        view.onFailure(comunication)
-        view.onError(comunication)
-    }
-
-    fun defaultLoaderBehavior(isLoading: Boolean) {
-        when (isLoading) {
-            true -> view.showLoading()
-            else -> view.hideLoading()
         }
     }
 
