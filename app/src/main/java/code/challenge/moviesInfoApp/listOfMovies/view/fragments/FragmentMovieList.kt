@@ -20,7 +20,7 @@ class FragmentMovieList :DefaultFragment<FragmentMovieListBinding>() {
 
     fun buildAdapter(): ListOfMoviesAdapter {
         defaultBinding.movieListRecycler
-            .addItemDecoration(ListOfMoviesDecoration())
+            .addItemDecoration(ListOfMoviesDecoration)
         return adapter
     }
 

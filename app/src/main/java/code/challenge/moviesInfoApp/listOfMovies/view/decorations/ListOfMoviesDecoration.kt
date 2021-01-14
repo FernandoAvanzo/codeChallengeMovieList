@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
-class ListOfMoviesDecoration : ItemDecoration() {
+object ListOfMoviesDecoration : ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect, view: View,
