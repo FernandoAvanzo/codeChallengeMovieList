@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.databinding.ViewDataBinding
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
+import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.interfaces.DefaultView
 
 abstract class DefaultActivity<T : ViewDataBinding>: AppCompatActivity(), DefaultView {
 

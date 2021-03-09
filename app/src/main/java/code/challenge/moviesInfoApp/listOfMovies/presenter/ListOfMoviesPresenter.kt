@@ -4,9 +4,8 @@ import android.graphics.Bitmap
 import code.challenge.moviesInfoApp.infrastructure.constants.ConstantsListOfMovies.POSTER_PICTURE
 import code.challenge.moviesInfoApp.infrastructure.constants.ConstantsListOfMovies.THUMBNAIL_PICTURE
 import code.challenge.moviesInfoApp.infrastructure.constants.ConstantsListOfMovies.UNKNOWN
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.presenter.DefaultPresenter
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
+import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.interfaces.DefaultView
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildBitampFromStream
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildDrawableAsset
 import code.challenge.moviesInfoApp.listOfMovies.model.entities.ListOfMovies

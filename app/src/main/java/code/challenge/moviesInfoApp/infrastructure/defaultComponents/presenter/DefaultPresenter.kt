@@ -3,7 +3,7 @@ package code.challenge.moviesInfoApp.infrastructure.defaultComponents.presenter
 import androidx.fragment.app.Fragment
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.ComunicationProtocolModel
 import code.challenge.moviesInfoApp.infrastructure.defaultComponents.model.entities.RequestOrigin
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
+import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.interfaces.DefaultView
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildBaseUrl
 import code.challenge.moviesInfoApp.listOfMovies.view.activitys.AppMainActivity
 

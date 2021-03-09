@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.DefaultView
+import code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.interfaces.DefaultView
 import code.challenge.moviesInfoApp.infrastructure.extensions.buildViewBinding
 
 abstract class DefaultAdapter<T : ViewDataBinding>(val baseContext: Context) :

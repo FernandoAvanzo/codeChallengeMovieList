@@ -6,6 +6,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.ViewDataBinding
 
 fun <T : ViewDataBinding> Int.buildViewBinding(inflater: LayoutInflater, container: ViewGroup?): T {
@@ -14,4 +15,8 @@ fun <T : ViewDataBinding> Int.buildViewBinding(inflater: LayoutInflater, contain
 
 fun Int.getDrawable(context: Context): Drawable {
     return context.resources.getDrawable(this, context.theme)
+}
+
+fun Int.getString(context: Context): String {
+    return context.getString(this)
 }
