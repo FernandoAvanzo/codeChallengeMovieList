@@ -14,7 +14,7 @@ import code.challenge.moviesInfoApp.infrastructure.extensions.emptyDefaultView
 import code.challenge.moviesInfoApp.infrastructure.extensions.getString
 import java.util.*
 
-abstract class DefaultFragment<T : ViewDataBinding> :  DefaultView, Navigation, Fragment() {
+abstract class DefaultFragment<T : ViewDataBinding> : DefaultView, Navigation, Fragment() {
 
     lateinit var defaultBinding: T
 
@@ -38,22 +38,21 @@ abstract class DefaultFragment<T : ViewDataBinding> :  DefaultView, Navigation, 
         .getString(requireContext())
         .toUpperCase(Locale.ROOT)
 
-    fun loadToolbarSettings() {
-        val toolbar = buildToolbarSettings()
-        loadRootScreen().applyToolbarTitle(toolbar.toolBarTitle)
-        loadRootScreen().showToolbar(toolbar.showToolBar)
-        configBackFeature(toolbar)
-        configCloseFeature(toolbar)
-        configRightCloseFeature(toolbar)
-        configShareFeature(toolbar)
-        configHelpFeature(toolbar)
+    fun loadToolbarSettings() = buildToolbarSettings().run {
+        loadRootScreen().applyToolbarTitle(toolBarTitle)
+        loadRootScreen().showToolbar(showToolBar)
+        configBackFeature(this)
+        configCloseFeature(this)
+        configRightCloseFeature(this)
+        configShareFeature(this)
+        configHelpFeature(this)
     }
 
     private fun configBackFeature(settings: ToolbarSettings) {
         loadRootScreen().showToolbarIconBack(settings.hasBackAction)
-        when(settings.hasBackAction){
-            true->loadRootScreen().applyArrowBackAction(settings)
-            else->loadRootScreen().applyArrowBackAction(ToolbarSettings())
+        when (settings.hasBackAction) {
+            true -> loadRootScreen().applyArrowBackAction(settings)
+            else -> loadRootScreen().applyArrowBackAction(ToolbarSettings())
         }
     }
 
@@ -64,7 +63,7 @@ abstract class DefaultFragment<T : ViewDataBinding> :  DefaultView, Navigation, 
         }
     }
 
-    private fun configCloseFeature(settings: ToolbarSettings){
+    private fun configCloseFeature(settings: ToolbarSettings) {
         loadRootScreen().showToolbarIconClose(settings.hasCloseAction)
         settings.takeIf { it.hasCloseAction }?.let {
             loadRootScreen().showToolbarIconBack(false)
@@ -73,14 +72,14 @@ abstract class DefaultFragment<T : ViewDataBinding> :  DefaultView, Navigation, 
         }
     }
 
-    private fun configRightCloseFeature(settings: ToolbarSettings){
+    private fun configRightCloseFeature(settings: ToolbarSettings) {
         loadRootScreen().showToolbarRightIconClose(settings.hasCloseRightAction)
         settings.takeIf { it.hasCloseRightAction }?.let {
             loadRootScreen().applyRightCloseAction(settings)
         }
     }
 
-    private fun configHelpFeature(settings: ToolbarSettings){
+    private fun configHelpFeature(settings: ToolbarSettings) {
         loadRootScreen().showToolbarIconHelp(settings.hasHelpAction)
         settings.takeIf { it.hasHelpAction }?.let {
             loadRootScreen().applyHelpAction(settings)
