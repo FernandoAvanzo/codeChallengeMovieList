@@ -24,7 +24,7 @@ class ListOfMoviesAdapter(context: Context) :
     }
 
     override fun idLayout() = item_movie_list
-    override fun viewContext() = baseContext
+    override fun viewContext(): Context = baseContext
     override fun getItemCount() = presenter.movieListSize()
     override fun updateListView() = notifyDataSetChanged()
     override fun updateInsertedList(id: Int) = notifyItemInserted(id)

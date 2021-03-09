@@ -19,23 +19,9 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
 
     private val posterAuth by lazy { AuthApiModel(buildMoviePictureUrl(), "") }
 
-    private val provider by lazy {
-        ListOfMoviesProvider(
-            presenter.view.viewContext(),
-            presenter::defaultLoader
-        )
-    }
+    fun addThumbnail(thumbKey: String, thumbnail: Bitmap) =
+        moviesThumbnails.put(thumbKey, thumbnail)
 
-    private val posterProvider by lazy {
-        ListOfMoviesProvider(
-            presenter.view.viewContext(),
-            presenter::defaultLoader,
-            posterAuth
-        )
-    }
-
-    fun loadUpComingMovies(page: Int = 1) = provider.loadUpComingMovies(page)
-    fun addThumbnail(thumbKey: String, thumbnail: Bitmap) = moviesThumbnails.put(thumbKey, thumbnail)
     fun getThumbnail(movie: Movie) = moviesThumbnails[movie.posterPath]
     fun hasNextPage() = currentPage.page < currentPage.totalPages
     fun nextPage() = currentPage.page + 1
@@ -43,9 +29,13 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
     fun refreshMovieList(thumbnail: ThumbnailRequest) =
         presenter.refreshInsertItem(thumbnail.movieId)
 
-    fun loadPosterPicture(movie: Movie?){
+    fun loadUpComingMovies(page: Int = 1) = ListOfMoviesProvider().run {
+        loadUpComingMovies(page)
+    }
+
+    fun loadPosterPicture(movie: Movie?) = ListOfMoviesProvider(posterAuth).run {
         movie?.let {
-            posterProvider.loadPosterPicture(it.posterPath?:"")
+            loadPosterPicture(it.posterPath ?: "")
         }
     }
 
@@ -67,7 +57,7 @@ class ListOfMoviesRepository(private val presenter: ListOfMoviesPresenter) {
         } ?: index
     }
 
-    private fun updateThumbnail(thumbnail: ThumbnailRequest){
+    private fun updateThumbnail(thumbnail: ThumbnailRequest) {
         val movie = thumbnail.movie
         takeIf { moviesThumbnails.containsKey(movie.posterPath).not() }?.let {
             presenter.loadThumbnailPicture(thumbnail)

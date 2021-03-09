@@ -1,5 +1,6 @@
 package code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.databinding.ViewDataBinding
@@ -11,7 +12,6 @@ abstract class DefaultActivity<T : ViewDataBinding>: AppCompatActivity(), Defaul
 
     abstract fun activityLayout(): Int
 
-    override fun viewContext() = this
-
+    override fun viewContext(): Context = this
 
 }

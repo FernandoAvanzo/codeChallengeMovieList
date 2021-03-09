@@ -52,20 +52,19 @@ fun buildBitampFromStream(byteStrean: InputStream): Bitmap {
     return BitmapFactory.decodeStream(buffer)
 }
 
-fun isInternetAccessible(): Boolean {
-    return try {
-        val urlc = URL("http://www.google.com").openConnection() as? HttpURLConnection
-        urlc?.let {
-            it.setRequestProperty("User-Agent", "Test")
-            it.setRequestProperty("Connection", "close")
-            it.connectTimeout = 1500
-            it.connect()
-            it.responseCode == 200
-        } ?: false
-    } catch (e: Exception) {
-        false
-    }
+fun isInternetAccessible(): Boolean = try {
+    val urlc = URL("http://www.google.com").openConnection() as? HttpURLConnection
+    urlc?.let {
+        it.setRequestProperty("User-Agent", "Test")
+        it.setRequestProperty("Connection", "close")
+        it.connectTimeout = 1500
+        it.connect()
+        it.responseCode == 200
+    } ?: false
+} catch (e: Exception) {
+    false
 }
+
 
 fun buildMovieServiceUrl() = movie_api_url
 fun buildMoviePictureUrl() = movie_picture_url

@@ -1,5 +1,6 @@
 package code.challenge.moviesInfoApp.infrastructure.defaultComponents.views.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ abstract class DefaultFragment<T : ViewDataBinding> : Fragment(), DefaultView {
 
     abstract fun fragmentLayout(): Int
 
-    override fun viewContext() = requireActivity()
+    override fun viewContext(): Context = requireActivity()
 
     override fun onCreateView(
         inflater: LayoutInflater,

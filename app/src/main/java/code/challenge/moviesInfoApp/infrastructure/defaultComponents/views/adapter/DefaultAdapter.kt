@@ -16,7 +16,7 @@ abstract class DefaultAdapter<T : ViewDataBinding>(val baseContext: Context) :
 
     abstract fun idLayout(): Int
 
-    override fun viewContext() = baseContext
+    override fun viewContext(): Context = baseContext
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         DefaultHolder(makeBinding(parent))

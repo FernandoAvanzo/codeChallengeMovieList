@@ -36,7 +36,7 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     }
 
     fun movieListSize() = repository.movies.size
-    fun loadUpComingMovies(page: Int = 1) = repository.loadUpComingMovies(page)
+
     fun getThumbnail(movie: Movie) = repository.getThumbnail(movie)
     fun hasNextPage() = repository.hasNextPage()
     fun nextPage() = repository.nextPage()
@@ -47,15 +47,19 @@ class ListOfMoviesPresenter(moviesView: DefaultView): DefaultPresenter(moviesVie
     fun buildPosterThumbnail(movie: Movie) = attachNavigationFragment(FragmentMoviePoster(movie))
     fun buildPosterListOfMovie() = attachNavigationFragment(FragmentMovieList())
 
+    fun loadUpComingMovies(page: Int = 1) = setup().run {
+        repository.loadUpComingMovies(page)
+    }
+
     fun takeMove(id: Int) = movieList()
         .takeIf { id in 0 until it.size }?.get(id) ?: Movie()
 
-    fun loadPosterPicture(movie: Movie) {
+    fun loadPosterPicture(movie: Movie) = setup().run {
         picturetype = POSTER_PICTURE
         repository.loadPosterPicture(movie)
     }
 
-    fun loadThumbnailPicture(thumbnail: ThumbnailRequest) {
+    fun loadThumbnailPicture(thumbnail: ThumbnailRequest) = setup().run {
         picturetype = THUMBNAIL_PICTURE
         thumbnailRequest = thumbnail
         repository.loadPosterPicture(thumbnail.movie)
